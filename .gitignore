@@ -24,4 +24,7 @@ dist-ssr
 *.sw?
 .env
 __pycache__/
+<<<<<<< HEAD
 venv/
+=======
+>>>>>>> 6576d4c02ee6b68c9fa08da0704d8ccf5718d0d3
