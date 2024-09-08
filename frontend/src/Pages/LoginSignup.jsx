@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 const LoginSignup = () =>{
+    const navigate = useNavigate();
     const [loginData, setLoginData] = useState({
         username: "",
         password: ""
@@ -14,9 +16,23 @@ const LoginSignup = () =>{
             password: ""
     })
     const [formToggle, setFormToggle] = useState(true);
-    const handleLoginSubmit = (e) =>{
+    const handleLoginSubmit = async (e) =>{
         e.preventDefault();
-        console.log(loginData);
+        try{
+            const response = await axios.post('http://localhost:8080/api/users/login',{
+                username: loginData.username,
+                password: loginData.password
+            });
+            const {success, access_token} = response.data;
+            if(success){
+                localStorage.setItem("token", access_token);
+                navigate('/');
+
+            }
+        }
+        catch(error){
+            console.log(error);
+        }
 
     }
     const handleRegisterSubmit = async (e) =>{
