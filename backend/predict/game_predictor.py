@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import joblib
 
 # Load the dataset
 games = pd.read_csv("baseball_stats.csv", index_col=0)
@@ -48,3 +49,5 @@ print("Confusion Matrix:\n", confusion_matrix(test["target"], preds))
 # Display prediction results
 combined = pd.DataFrame(dict(actual=test["target"], prediction=preds))
 print(combined)
+
+joblib.dump(rf, 'game_predictor.pk1')
