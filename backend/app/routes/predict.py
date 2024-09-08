@@ -21,6 +21,9 @@ def predict():
     data = request.get_json()
     team = data.get("team")
     opp = data.get("opp")
+    rank = data.get("rank")
+    win_loss = data.get('w-l')
+
     
     # Encoding for 'h/a': assume 1 for home, 0 for away
     h_a = 1 if data.get("h/a") == "home" else 0
@@ -38,10 +41,10 @@ def predict():
 
     # Prepare the input data for the model
     input_data = pd.DataFrame([{
+        'Rank': rank,
         'h/a': h_a,
         'Opp': opp_code,
-        'R': 0,   # Placeholder value for future games
-        'RA': 0   # Placeholder value for future games
+        'W-L': win_loss
     }])
 
     # Make prediction
