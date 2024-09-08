@@ -71,4 +71,4 @@ print(f"Number of teams collected: {len(all_teams)}")
 
 # Combine all collected data into a single DataFrame
 stat_df = pd.concat(all_teams, ignore_index=True)
-stat_df.to_csv("baseball_stats.csv", index=False)
+stat_df.to_csv("../predict/baseball_stats.csv", index=False)
