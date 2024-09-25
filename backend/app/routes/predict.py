@@ -10,20 +10,24 @@ def predict():
     # Get the absolute path of the model file
     base_dir = os.path.dirname(os.path.abspath(__file__))
     model_path = os.path.join(base_dir, '..' ,'..', 'predict', 'best_game_predictor.pkl')
+    csv_path = os.path.join(base_dir, '..', 'current_stats.csv')
+
     
     # Print the path for debugging
     print(f"Loading model from: {model_path}")
-    
+    print(f"Loading CSV from: {csv_path}")
     # Load the model
     model = joblib.load(model_path)
+    current_stats = pd.read_csv(csv_path, index_col="AL East")
+    print(current_stats)
     
     # Extract data from the request
     data = request.get_json()
     team = data.get("team")
     opp = data.get("opp")
-    rank = data.get("rank")
-    wins = data.get('wins')
-    losses = data.get('losses')
+    rank = current_stats.loc[current_stats['abbr'] == team, 'Rank'].values[0]
+    wins = current_stats.loc[current_stats['abbr'] == team, 'W'].values[0]
+    losses = current_stats.loc[current_stats['abbr'] == team, 'L'].values[0]
 
     
     # Encoding for 'h/a': assume 1 for home, 0 for away
